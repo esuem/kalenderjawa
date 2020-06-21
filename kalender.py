@@ -141,7 +141,7 @@ class Tgl:
                 return e.args
 
 
-    def tgljawa(self, weton=True, windu=True, wuku=False):
+    def tgljawa(self, weton=True, tanggal=True, windu=True, wuku=False):
         '''Mengembalikan tanggal jawa untuk tanggal tertentu
         Args:
             weton = menampilkan nama weton
@@ -155,8 +155,9 @@ class Tgl:
         if weton:
             txt += "{}, ".format(self.pawukon())
 
-        txt += "{} {} {} {}".format(self.erajawa[4]+1, self.sasi[self.erajawa[3]+1], 
-                y, self.taun[self.erajawa[2]])
+        if tanggal:
+            txt += "{} {} {} {}".format(self.erajawa[4]+1, self.sasi[self.erajawa[3]+1], 
+                    y, self.taun[self.erajawa[2]])
 
         if windu:
             txt += " Windu {}".format(self.tumbuk[(15*self.erajawa[0] + self.erajawa[1]) % 4])

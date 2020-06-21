@@ -5,6 +5,10 @@
 # serta fitur-fitur tambahan lainnya.
 ##########
 
+
+# Impor library yang diprelukan
+# Script ini mencoba untuk membuat dependensi seminimal mungkin.
+
 from datetime import date, timedelta
 
 
@@ -34,7 +38,7 @@ class Tgl:
         self.eramasehi = None
 
         """
-        Library untuk penghitungan w210
+        Library: untuk penamaan dan penghitungan dalam siklus pawukon
         """
         self.w5 = ["Pahing", "Pon", "Wage", "Kliwon", "Legi"]
         self.w6 = ["Tungle", "Aryang", "Wurukung", "Paningron", "Uwas", "Mawulu"]
@@ -70,6 +74,24 @@ class Tgl:
 
 
     def set_era(self):
+        '''Digunakan untuk menyajikan nilai era dalam suatu list yang akan digunakan 
+        dalam perhitungan lebih lanjut.
+        Return:
+        erajawa (list) terdiri atas:
+            [0] Kurup, 120 tahun (8 windu, 42524 hari)
+            [1] Windu, 8 tahun (2835 hari)
+            [2] Taun, 1 tahun kalender (354/355 hari)
+            [3] Sasi, 1 bulan (29/30 hari)
+            [4] Hari
+            Nilai didapatkan dari selisih tanggal terhadap hari epoch(self.e)
+        eramasehi (list) terdiri atas:
+            [0] Tahun
+            [1] Bulan
+            [2] Hari
+            Nilai didapatkan dari posisi tanggal dalam penanggalan gregorian proleptik.
+            (selengkapnya: )
+            
+        '''
         if self.delta is None:
             pass
         else:
@@ -93,7 +115,7 @@ class Tgl:
 
 
     def neptu(self, mode=35):
-        '''Mengembalikan nilai neptu tanggal tertentu
+        '''Mengembalikan nilai neptu pada tanggal tertentu
         Args:
             mode = 5 untuk neptu pasaran, 7 untuk neptu hari, 35 untuk neptu selapanan
         Return: (int)
@@ -114,7 +136,7 @@ class Tgl:
 
 
     def pawukon(self, mode=35):
-        '''Mengembalikan nama pawukon dalam siklus 210 hari jawa.
+        '''Mengembalikan nama komponen pawukon dalam siklus 210 hari jawa.
         Args:
             Mode = 
                 5 untuk nama pasaran
@@ -145,6 +167,7 @@ class Tgl:
         '''Mengembalikan tanggal jawa untuk tanggal tertentu
         Args:
             weton = menampilkan nama weton
+            tanggal = menampilkan tanggal
             windu = menampulkan nama windu
             wuku = menampilkan nama wuku
         Return (string)
@@ -207,7 +230,7 @@ class Tgl:
 
 
     def mangsa(self):
-        '''TO-DO, mengembalikan penanggalan matahari berdasar tanggal'''
+        '''Mengembalikan hari dan mangsa pada suatu tanggal masehi maupun jawa'''
         pass
         sasi = (self.eramasehi[1] + 9) % 12
         umur = 31*sasi - sum([(i%5)%2 for i in range(sasi)]) + self.eramasehi[2]
@@ -220,7 +243,12 @@ class Tgl:
 
 
 class masehi(Tgl):
-
+    """Class untuk tanggal masehi.
+    Args:
+    yy (int) tahun
+    mm (int) bulan (1-12)
+    dd (int) tanggal
+    """
 
     def __init__(self, yy, mm, dd, n=0):
         Tgl.__init__(self, yy, mm, dd, n)
@@ -237,7 +265,12 @@ class masehi(Tgl):
 
 
 class jawa(Tgl):
-
+    """Class untuk tanggal Jawa.
+    Args:
+    yy (int) tahun
+    mm (int) bulan (1-12)
+    dd (int) tanggal
+    """
 
     def __init__(self, yy, mm, dd, n=0):
         Tgl.__init__(self, yy, mm, dd, n)

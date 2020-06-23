@@ -11,13 +11,14 @@
 -	**Memperoleh Tanggal Pranata Mangsa** atas suatu tanggal (Masehi/Jawa).
 -	**Memperoleh Hari, Pasaran, Wuku, dan Angka Neptu** atas suatu tanggal (Masehi/Jawa).
 -	**Penghitungan *Pendhak* (hari setelah kejadian)**, misal untuk peringatan kelahiran/kematian.
+-	Menyertakan _interface_ sederhana menggunakan Tkinter.
 
-* berdasarkan penelitian (baca:browsing) yang dilakukan, selengkapnya dalam catatan.
+\* berdasarkan penelitian (baca:browsing) yang dilakukan, selengkapnya dalam catatan.
 
 ## Requirement
 
 -	Python 3
--	Library : datetime
+-	Library : datetime, Tkinter
 
 ## Dokumentasi
 
@@ -29,9 +30,8 @@
 -	Penghitungan kalender diadaptasi dari perhitungan kalender islam dan kalender bali oleh Reingold dan Dershowitz dalam [Calendrical Calculations](https://doi.org/10.1017/9781107415058) dengan penyesuaian terhadap perbedaan penghitungan tahun kabisat pada kalender Islam Timur Tengah dan Kalender Jawa, termasuk penentuan tanggal epoch untuk memulai perhitungan sebagaimana artikel sebelumnya.
 -	Penghitungan Pranata Mangsa mengikuti Artikel Wikipedia \[[Citation needed](https://xkcd.com/285/)\]
 - 	Karena keterbatasan Library Datetime, penanggalan sebelum dimulainya era gregorian akan mengalami pergeseran. [*selengkapnya*](https://docs.python.org/3/library/datetime.html#date-objects)
+-	Penanggalan yang dihasilkan oleh paket ini mungkin akan berbeda dengan penanggalan lain seperti kalender hijriah atau kalender jawa Sultan Agungan (Asapon/Aboge).
 
 ## Lisensi
 
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
-
-- **[MIT license](http://opensource.org/licenses/mit-license.php)**
+**[MIT license](http://opensource.org/licenses/mit-license.php)**

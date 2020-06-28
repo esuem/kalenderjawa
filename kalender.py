@@ -30,12 +30,12 @@ class Tgl:
         self.mm = mm
         self.yy = yy
         self.n = n
-        self.e = date(1354, 2, 3)
+        self._e = date(1354, 2, 3)
 
         self.delta = None
-        self.w210 = None
-        self.erajawa = None
-        self.eramasehi = None
+        self._w210 = None
+        self._erajawa = None
+        self._eramasehi = None
 
         """
         Library: untuk penamaan dan penghitungan dalam siklus pawukon
@@ -83,8 +83,8 @@ class Tgl:
             [2] Taun, 1 tahun kalender (354/355 hari)
             [3] Sasi, 1 bulan (29/30 hari)
             [4] Hari
-            Nilai didapatkan dari selisih tanggal terhadap hari epoch(self.e)
-        eramasehi (list) terdiri atas:
+            Nilai didapatkan dari selisih tanggal terhadap hari epoch(self._e)
+       ._eramasehi (list) terdiri atas:
             [0] Tahun
             [1] Bulan
             [2] Hari
@@ -106,12 +106,12 @@ class Tgl:
             if erajawa[3] == 12:
                 erajawa[3], erajawa[4] = 11, 29
 
-            self.erajawa = erajawa
+            self._erajawa = erajawa
 
-            eramasehi = self.e + timedelta(days=deltamasehi)
+            eramasehi = self._e + timedelta(days=deltamasehi)
             eramasehi = [eramasehi.year, eramasehi.month, eramasehi.day]
 
-            self.eramasehi = eramasehi
+            self._eramasehi = eramasehi
 
 
     def neptu(self, mode=35):
@@ -120,13 +120,13 @@ class Tgl:
             mode = 5 untuk neptu pasaran, 7 untuk neptu hari, 35 untuk neptu selapanan
         Return: (int)
         '''
-        if self.w210 is None:
+        if self._w210 is None:
             return "ERROR:Tanggal berada di luar jangkauan!"
         else:
             dct = {
-                5:self.n5[self.w210 % 5],
-                7:self.n7[self.w210 % 7],
-                35:(self.n7[self.w210 % 7] + self.n5[self.w210 % 5])
+                5:self.n5[self._w210 % 5],
+                7:self.n7[self._w210 % 7],
+                35:(self.n7[self._w210 % 7] + self.n5[self._w210 % 5])
             }
 
             try:
@@ -146,15 +146,15 @@ class Tgl:
                 210 untuk nama wuku
         Return (str)
         '''
-        if self.w210 is None:
+        if self._w210 is None:
             return "ERROR:Tanggal berada di luar jangkauan!"
         else:
             dct = {
-                5:self.w5[self.w210 % 5],
-                6:self.w6[self.w210 % 6],
-                7:self.w7[self.w210 % 7],
-                35:"{} {}".format(self.w7[self.w210 % 7], self.w5[self.w210 % 5]),
-                210:self.w30[self.w210 // 7]
+                5:self.w5[self._w210 % 5],
+                6:self.w6[self._w210 % 6],
+                7:self.w7[self._w210 % 7],
+                35:"{} {}".format(self.w7[self._w210 % 7], self.w5[self._w210 % 5]),
+                210:self.w30[self._w210 // 7]
             }
 
             try:
@@ -173,17 +173,17 @@ class Tgl:
         Return (string)
         '''
         txt = ""
-        y = 1267 + self.erajawa[0] * 120 + self.erajawa[1] * 8 + self.erajawa[2]
+        y = 1267 + self._erajawa[0] * 120 + self._erajawa[1] * 8 + self._erajawa[2]
         
         if weton:
             txt += "{}, ".format(self.pawukon())
 
         if tanggal:
-            txt += "{} {} {} {}".format(self.erajawa[4]+1, self.sasi[self.erajawa[3]+1], 
-                    y, self.taun[self.erajawa[2]])
+            txt += "{} {} {} {}".format(self._erajawa[4]+1, self.sasi[self._erajawa[3]+1], 
+                    y, self.taun[self._erajawa[2]])
 
         if windu:
-            txt += " Windu {}".format(self.tumbuk[(15*self.erajawa[0] + self.erajawa[1]) % 4])
+            txt += " Windu {}".format(self.tumbuk[(15*self._erajawa[0] + self._erajawa[1]) % 4])
 
         if wuku:
             txt += " Wuku {}".format(self.pawukon(210))
@@ -203,8 +203,8 @@ class Tgl:
         if weton:
             txt += "{}, ".format(self.pawukon())
 
-        txt += "{} {} {}".format(self.eramasehi[2], self.mmmm[self.eramasehi[1]],
-                self.eramasehi[0])
+        txt += "{} {} {}".format(self._eramasehi[2], self.mmmm[self._eramasehi[1]],
+                self._eramasehi[0])
 
         if wuku:
             txt += " Wuku {}".format(self.pawukon(210))
@@ -222,7 +222,7 @@ class Tgl:
         Return (string)
         '''
         n = self.delta
-        era = self.erajawa[2]
+        era = self._erajawa[2]
         n += dina
         n += (354*taun) + sum([self.kabisat[(era+i) % 8] for i in range(taun)])
         newdate = masehi(1354, 2, 3, n-1)
@@ -232,8 +232,8 @@ class Tgl:
     def mangsa(self):
         '''Mengembalikan hari dan mangsa pada suatu tanggal masehi maupun jawa'''
         pass
-        sasi = (self.eramasehi[1] + 9) % 12
-        umur = 31*sasi - sum([(i%5)%2 for i in range(sasi)]) + self.eramasehi[2]
+        sasi = (self._eramasehi[1] + 9) % 12
+        umur = 31*sasi - sum([(i%5)%2 for i in range(sasi)]) + self._eramasehi[2]
         sasi = -1
         while umur > 0:
             sasi += 1
@@ -258,10 +258,10 @@ class masehi(Tgl):
 
     
     def set_element(self):
-        delta, fix = (self.d - self.e).days, 196
+        delta, fix = (self.d - self._e).days, 196
         delta += self.n
         if delta >= 0: self.delta = delta
-        if delta >= 0: self.w210 = (delta + fix) % 210
+        if delta >= 0: self._w210 = (delta + fix) % 210
 
 
 class jawa(Tgl):
@@ -294,4 +294,4 @@ class jawa(Tgl):
         delta += self.n
 
         if delta >= 0: self.delta = delta
-        if delta >= 0: self.w210 = (delta + fix) % 210
+        if delta >= 0: self._w210 = (delta + fix) % 210

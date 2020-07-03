@@ -16,7 +16,7 @@ class Tgl:
     """Tgl sebagai superclass"""
 
 
-    def __init__(self, yy, mm, dd, n):
+    def __init__(self, yy, mm, dd):
         """Attribute untuk Class Tgl
         Attr:
             yy (int) : tahun
@@ -29,7 +29,7 @@ class Tgl:
         self.dd = dd
         self.mm = mm
         self.yy = yy
-        self.n = n
+        #self.n = n
         self._e = date(1354, 2, 3)
 
         self.delta = None
@@ -212,7 +212,7 @@ class Tgl:
         return txt
 
 
-    def pendhak(self, dina=0, taun=0, format='masehi'):
+    def pendhak(self, dina=0, taun=0, form='masehi'):
         '''mencari jatuhnya hari setelah kejadian.
         sering digunakan untuk selamatan orang meninggal.
         Args:
@@ -225,8 +225,13 @@ class Tgl:
         era = self._erajawa[2]
         n += dina
         n += (354*taun) + sum([self.kabisat[(era+i) % 8] for i in range(taun)])
-        newdate = masehi(1354, 2, 3, n-1)
-        return newdate.tglmasehi()
+        _newdate = self._e + timedelta(n)
+        _date = masehi(_newdate.year, _newdate.month, _newdate.day)
+        if form == 'masehi':
+            return _date.tglmasehi()
+        elif form == 'jawa':
+            return _date.tgljawa()
+
 
 
     def mangsa(self):
@@ -250,8 +255,8 @@ class masehi(Tgl):
     dd (int) tanggal
     """
 
-    def __init__(self, yy, mm, dd, n=0):
-        Tgl.__init__(self, yy, mm, dd, n)
+    def __init__(self, yy, mm, dd):
+        Tgl.__init__(self, yy, mm, dd)
         self.d = date(self.yy, self.mm, self.dd)
         self.set_element()
         self.set_era()
@@ -259,7 +264,6 @@ class masehi(Tgl):
     
     def set_element(self):
         delta, fix = (self.d - self._e).days, 196
-        delta += self.n
         if delta >= 0: self.delta = delta
         if delta >= 0: self._w210 = (delta + fix) % 210
 
@@ -272,8 +276,8 @@ class jawa(Tgl):
     dd (int) tanggal
     """
 
-    def __init__(self, yy, mm, dd, n=0):
-        Tgl.__init__(self, yy, mm, dd, n)
+    def __init__(self, yy, mm, dd):
+        Tgl.__init__(self, yy, mm, dd)
         self.d = "{}-{:0>2d}-{:0>2d} AJ".format(yy, mm, dd)
         self.set_element()
         self.set_era()
@@ -282,7 +286,6 @@ class jawa(Tgl):
     def set_element(self):
         y, m, d = self.yy - 1267, self.mm - 1, self.dd - 1
         delta, fix, dlist = 0, 196, [0,0,0]
-        
         dlist[0], y = y // 120, y % 120
         dlist[1], dlist[2] = y // 8, y % 8
 

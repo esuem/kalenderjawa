@@ -225,7 +225,7 @@ class Tgl:
         era = self._erajawa[2]
         n += dina
         n += (354*taun) + sum([self.kabisat[(era+i) % 8] for i in range(taun)])
-        _newdate = self._e + timedelta(n)
+        _newdate = self._e + timedelta(n-1)
         _date = masehi(_newdate.year, _newdate.month, _newdate.day)
         if form == 'masehi':
             return _date.tglmasehi()

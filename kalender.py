@@ -22,7 +22,6 @@ class Tgl:
             yy (int) : tahun
             mm (int) : bulan
             dd (int) : hari
-            n (int)  : arbritari, digunakan untuk penghitungan selisih (lihat fungsi pendhak)
             e (date) : Tanggal Epoch, hari pertama penanggalan islam Jawa
                        dalam penanggalan Masehi (Gregorian)
         """
@@ -264,8 +263,8 @@ class masehi(Tgl):
     
     def set_element(self):
         delta, fix = (self.d - self._e).days, 196
+        self._w210 = (delta + fix) % 210
         if delta >= 0: self.delta = delta
-        if delta >= 0: self._w210 = (delta + fix) % 210
 
 
 class jawa(Tgl):
@@ -296,5 +295,5 @@ class jawa(Tgl):
         delta += d
         delta += self.n
 
+        self._w210 = (delta + fix) % 210
         if delta >= 0: self.delta = delta
-        if delta >= 0: self._w210 = (delta + fix) % 210

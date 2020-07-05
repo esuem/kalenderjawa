@@ -22,7 +22,15 @@
 
 ## Dokumentasi
 
-> Sedang dikerjakan
+Modul ini terdiri atas dua jenis class (masehi, jawa) yang masing-masing memiliki method:
+
+-	**.neptu()** mengebalikan nilai (urip) hari dalam siklus 35 hari.
+-	**.pawukon()** mengembalikan nama pawukon (hari, pasaran, wuku) atas suatu tanggal.
+-	**.tgljawa()** mengembalikan nilai tanggal jawa atas suatu tanggal.
+-	**.pendhak()** mengembalikan tanggal peringatan setelah kejadian (dalam masehi maupun jawa).
+-	**.mangsa()** mengembalikan hari dan mangsa pada suatu tanggal masehi maupun jawa.
+
+Dokumentasi lebih lanjut sedang dikerjakan. Dokumentasi juga dapat dilihat lebih lanjut dalam kode yang disediakan.
 
 ## Catatan dan Tautan Penting
 

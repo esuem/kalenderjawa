@@ -73,7 +73,6 @@ class Tgl:
         self._eramasehi = None
 
 
-
     def set_era(self):
         '''Digunakan untuk menyajikan nilai era dalam suatu list yang akan digunakan 
         dalam perhitungan lebih lanjut.

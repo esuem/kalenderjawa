@@ -15,6 +15,43 @@ from datetime import date, timedelta
 class Tgl:
     """Tgl sebagai superclass"""
 
+    _e = date(1354, 2, 3)
+
+    """
+    Library: untuk penamaan dan penghitungan dalam siklus pawukon
+    """
+    w5 = ["Pahing", "Pon", "Wage", "Kliwon", "Legi"]
+    w6 = ["Tungle", "Aryang", "Wurukung", "Paningron", "Uwas", "Mawulu"]
+    w7 = ["Ahad", "Senen", "Selasa", "Rebo", "Kemis", "Jemuah", "Setu", "Ahad"]
+    w30 = [
+        "Sinta", "Landep", "Wukir", "Kurantil", "Tolu",
+        "Gumbreng", "Warigalit", "Warigagung", "Julungwangi", "Sungsang",
+        "Galungan", "Kuningan", "Langkir", "Mandhasiya", "Julungpujud",
+        "Pahang", "Kuruwelut", "Marakeh", "Tambir", "Madangkungan",
+        "Maktal", "Wuye", "Manail", "Prangbakat", "Bala",
+        "Wugu", "Wayang", "Kulawu", "Dhukut", "Watugunung"]
+    n7 = [5, 4, 3, 7, 8, 6, 9]
+    n5 = [9, 7, 4, 8, 5]
+
+    """
+    Library: untuk penamaan panjang
+    """
+    mmmm = ["Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
+        "Agustus", "September", "Oktober", "Nopember", "Desember"]
+    sasi = [
+        None, "Sura", "Sapar", "Mulud", "Bakda Mulud", "Jumadil Awal", "Jumadil Akir",
+        "Rejeb", "Ruwah", "Pasa", "Sawal", "Apit", "Besar"]
+    taun = ["Alip", "Ehe", "Jimawal", "Je", "Dal", "Be", "Wawu", "Jimakir"]
+    tumbuk = ["Kuntara", "Sengara", "Sancaya", "Adi"]
+    kabisat = [0, 1, 0, 0, 1, 0, 0, 1]
+
+    """
+    Library: untuk penghitungan mangsa
+    """
+    ka = ["Kasanga", "Kasepuluh", "Desta", "Sada", "Kasa", "Karo",
+        "Katelu", "Kapat", "Kalima", "Kanem", "Kapitu", "Kawolu"]
+    umurka = [25, 24, 23, 41, 41, 23, 24, 25, 27, 43, 43, 27]    
+
 
     def __init__(self, yy, mm, dd):
         """Attribute untuk Class Tgl
@@ -28,48 +65,13 @@ class Tgl:
         self.dd = dd
         self.mm = mm
         self.yy = yy
-        #self.n = n
-        self._e = date(1354, 2, 3)
+        #self._e = date(1354, 2, 3)
 
         self.delta = None
         self._w210 = None
         self._erajawa = None
         self._eramasehi = None
 
-        """
-        Library: untuk penamaan dan penghitungan dalam siklus pawukon
-        """
-        self.w5 = ["Pahing", "Pon", "Wage", "Kliwon", "Legi"]
-        self.w6 = ["Tungle", "Aryang", "Wurukung", "Paningron", "Uwas", "Mawulu"]
-        self.w7 = ["Ahad", "Senen", "Selasa", "Rebo", "Kemis", "Jemuah", "Setu", "Ahad"]
-        self.w30 = [
-            "Sinta", "Landep", "Wukir", "Kurantil", "Tolu",
-            "Gumbreng", "Warigalit", "Warigagung", "Julungwangi", "Sungsang",
-            "Galungan", "Kuningan", "Langkir", "Mandhasiya", "Julungpujud",
-            "Pahang", "Kuruwelut", "Marakeh", "Tambir", "Madangkungan",
-            "Maktal", "Wuye", "Manail", "Prangbakat", "Bala",
-            "Wugu", "Wayang", "Kulawu", "Dhukut", "Watugunung"]
-        self.n7 = [5, 4, 3, 7, 8, 6, 9]
-        self.n5 = [9, 7, 4, 8, 5]
-
-        """
-        Library: untuk penamaan panjang
-        """
-        self.mmmm = ["Desember", "Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli",
-            "Agustus", "September", "Oktober", "Nopember", "Desember"]
-        self.sasi = [
-            None, "Sura", "Sapar", "Mulud", "Bakda Mulud", "Jumadil Awal", "Jumadil Akir",
-            "Rejeb", "Ruwah", "Pasa", "Sawal", "Apit", "Besar"]
-        self.taun = ["Alip", "Ehe", "Jimawal", "Je", "Dal", "Be", "Wawu", "Jimakir"]
-        self.tumbuk = ["Kuntara", "Sengara", "Sancaya", "Adi"]
-        self.kabisat = [0, 1, 0, 0, 1, 0, 0, 1]
-
-        """
-        Library: untuk penghitungan mangsa
-        """
-        self.ka = ["Kasanga", "Kasepuluh", "Desta", "Sada", "Kasa", "Karo",
-            "Katelu", "Kapat", "Kalima", "Kanem", "Kapitu", "Kawolu"]
-        self.umurka = [25, 24, 23, 41, 41, 23, 24, 25, 27, 43, 43, 27]
 
 
     def set_era(self):
@@ -293,7 +295,6 @@ class jawa(Tgl):
         delta += (dlist[2] * 354) + ((dlist[2]+1) // 3)
         delta += (m*29) + ((m+1) // 2)
         delta += d
-        delta += self.n
 
         self._w210 = (delta + fix) % 210
         if delta >= 0: self.delta = delta

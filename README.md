@@ -11,7 +11,7 @@
 -	**Memperoleh Tanggal Pranata Mangsa** atas suatu tanggal (Masehi/Jawa).
 -	**Memperoleh Hari, Pasaran, Wuku, dan Angka Neptu** atas suatu tanggal (Masehi/Jawa).
 -	**Penghitungan *Pendhak* (hari setelah kejadian)**, misal untuk peringatan kelahiran/kematian.
--	Menyertakan _interface_ sederhana menggunakan Tkinter.
+-	Menyertakan _interface_ sederhana menggunakan Tkinter (dalam pengembangan).
 
 \* berdasarkan penelitian (baca:browsing) yang dilakukan, selengkapnya dalam catatan.
 

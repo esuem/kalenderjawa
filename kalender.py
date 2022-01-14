@@ -212,12 +212,13 @@ class Tgl:
         return txt
 
 
-    def pendhak(self, dina=0, taun=0, form='masehi'):
+    def pendhak(self, dina=0, taun=0, pati=False, format='masehi'):
         '''mencari jatuhnya hari setelah kejadian.
         sering digunakan untuk selamatan orang meninggal.
         Args:
             dina = berapa hari setelah kejadian
             taun = berapa tahun setelah kejadian
+            pati = mengindikasikan peringatan kematian dimana hari kematian dihitung hari ke-1.
             format = mengembalikan dalam tahun jawa/masehi
         Return (string)
         '''
@@ -225,11 +226,14 @@ class Tgl:
         era = self._erajawa[2]
         n += dina
         n += (354*taun) + sum([self.kabisat[(era+i) % 8] for i in range(taun)])
-        _newdate = self._e + timedelta(n-1)
+        if pati:
+            _newdate = self._e + timedelta(n-1)
+        else: 
+            _newdate = self._e + timedelta(n)
         _date = masehi(_newdate.year, _newdate.month, _newdate.day)
-        if form == 'masehi':
+        if format == 'masehi':
             return _date.tglmasehi()
-        elif form == 'jawa':
+        elif format == 'jawa':
             return _date.tgljawa()
 
 
